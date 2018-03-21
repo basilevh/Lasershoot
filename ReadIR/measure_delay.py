@@ -1,13 +1,13 @@
 import time
 import datetime
 import MySQLdb
-import csv
 import os
 import signal
 import subprocess
 import RPi.GPIO as GPIO
 
-db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011", db="hackathon")
+db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011",
+                     db="hackathon")
 proc = subprocess.Popen(
     "python3 alive.py3",
     stderr=subprocess.STDOUT,  # Merge stdout and stderr
@@ -22,8 +22,8 @@ result = [True] * 9
 percentage = 0.30
 
 diffList = [0.0] * 10
-def compare(arr, proc):
-    
+def compare(arr):
+
     ok = True
     for i in range(1,9):
         arr[i] = (target[1] / arr[1]) * arr[i]
@@ -37,7 +37,7 @@ def compare(arr, proc):
     print(diffList)
     print(result)
     print('\n')
-    
+
     return ok
 
 power = 7
@@ -54,9 +54,6 @@ GPIO.setup(buzzer,GPIO.OUT)
 GPIO.output(buzzer,GPIO.HIGH)
 
 GPIO.setup(ir,GPIO.IN)
-
-
-
 
 f = open('team2.csv', 'a')
 f.write('\n')
@@ -76,18 +73,17 @@ while(True):
         if largenumberseen and counterWritten < 11:
             arr[counterWritten] = counter;
             counterWritten = counterWritten + 1
-            
+
             #print(str(lastread) + " / " + str(counter))
             #f.write(str(counter) + '\t')
-            
+
         if counterWritten == 11:
             counterWritten = 0
-            isShot = compare(arr, proc)
-            
-            
-            if isShot == True:
+            isShot = compare(arr)
+
+            if isShot:
                 os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
-                print proc
+                print(proc)
                 proc = subprocess.Popen(
                     "python3 dead.py3",
                     stderr=subprocess.STDOUT,  # Merge stdout and stderr
@@ -104,10 +100,11 @@ while(True):
                     file.close()
                     ts = time.time()
                     timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-                    cur.execute("""INSERT INTO hackathon.scores (game, timestamp, idpi) VALUES (%s, %s, %s)""", (newId, timestamp, piid))
+                    cur.execute("""INSERT INTO hackathon.scores (game, timestamp, idpi) VALUES (%s, %s, %s)""",
+                                (newId, timestamp, piid))
                     db.commit()
                 except Exception as e:
-                    print "error: ", str(e)
+                    print("error: ", str(e))
                     db.rollback()
                 print('I\'ve been shot! Inactive for 10 seconds!');
                 time.sleep(10);
@@ -119,14 +116,14 @@ while(True):
                     stdout=subprocess.PIPE,
                     shell=True,
                     preexec_fn=os.setsid)
-            
+
             print(isShot)
             counter = 0
             largenumberseen = False
             counterWritten = 0
             arr = [0] * 11
         else:
-            
+
             counter = 0
             lastread = newlastread
             newlasttime = time.time()
@@ -134,7 +131,6 @@ while(True):
         #if diff > 5.5 and diff < 6.5:
         #print((newlasttime-lasttime)*1000)
             lasttime = newlasttime
-            
+
     else:
         counter = counter + 1
-

@@ -1,8 +1,7 @@
 import MySQLdb
-import time
-import datetime
 
-db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011", db="hackathon")
+db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011",
+                     db="hackathon")
 
 #create a cursor for the select
 cur = db.cursor()
@@ -12,7 +11,7 @@ cur = db.cursor()
 #       Id
 #       gamemode
 #       timestamp
-#       status 
+#       status
 # GameModes
 #       id
 #       name
@@ -22,7 +21,7 @@ cur = db.cursor()
 #       timestamp
 #       idpi
 
-    
+
 cur.execute("select id,status from dlwhackathon.game order by timestamp desc")
 row = cur.fetchone()
 
@@ -32,13 +31,13 @@ if int(row[1]) != 1:
     print("Er is geen spel bezig!")
 else:
     try:
-        id = int(row[0])
-        cur.execute("UPDATE dlwhackathon.game SET status = '0' WHERE Id = %s", (id,))
+        mid = int(row[0])
+        cur.execute("UPDATE dlwhackathon.game SET status = '0' WHERE Id = %s", (mid,))
         db.commit();
         print("spel", str(row[0]), "gestopt")
     except Exception as e:
         print("error: ", str(e))
         db.rollback()
-    
+
 cur.close()
 db.close()

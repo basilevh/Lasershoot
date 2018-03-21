@@ -5,6 +5,11 @@ It contains very rudimentary code, that needs improvement.
 
 
 ## tests
+dependencies: mysqlclient:
+On debian based systems:
+`sudo apt-get install libmysqlclient-dev`
+on macos:
+`brew install mysqlclient`
 run with `python3 setup.py test`
 
 ## Scoreboard
