@@ -26,18 +26,18 @@ cur = db.cursor()
 cur.execute("select id,status from dlwhackathon.game order by timestamp desc")
 row = cur.fetchone()
 
-print "Recentste spel:", str(row[0]), str(row[1])
+print("Recentste spel:", str(row[0]), str(row[1]))
 
 if int(row[1]) != 1:
-    print "Er is geen spel bezig!"
+    print("Er is geen spel bezig!")
 else:
     try:
         id = int(row[0])
         cur.execute("UPDATE dlwhackathon.game SET status = '0' WHERE Id = %s", (id,))
         db.commit();
-        print "spel", str(row[0]), "gestopt"
+        print("spel", str(row[0]), "gestopt")
     except Exception as e:
-        print "error: ", str(e)
+        print("error: ", str(e))
         db.rollback()
     
 cur.close()

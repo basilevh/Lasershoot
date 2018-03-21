@@ -36,7 +36,7 @@ try:
     cur.execute("""INSERT INTO dlwhackathon.game (id, gamemode, timestamp, status) VALUES (%s, %s, %s, %s)""", (newId, 'capture_the_flag', timestamp, '1')) 
     db.commit()
 except Exception as e:
-    print "error: ", str(e)
+    print("error: ", str(e))
     db.rollback()
     
 cur.close()

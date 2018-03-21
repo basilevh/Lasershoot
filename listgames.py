@@ -24,7 +24,7 @@ cur = db.cursor()
 
 cur.execute("SELECT * FROM dlwhackathon.game")
 for row in cur.fetchall():
-    print str(row[0]), str(row[1]), str(row[2]), str(row[3])
+    print(str(row[0]), str(row[1]), str(row[2]), str(row[3]))
     
 cur.close()
 db.close()
