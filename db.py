@@ -11,13 +11,13 @@ cur.execute("SELECT * FROM dlwhackathon.gamemodes")
 
 # loop to iterate
 for row in cur.fetchall() :
-      #data from rows
-      id = str(row[0])
-      name = str(row[1])
+    #data from rows
+    mid = str(row[0])
+    name = str(row[1])
 
-      #print it
-      print("The ID is: " + id)
-      print("The game mode is: " + name)
+    #print it
+    print("The ID is: " + mid)
+    print("The game mode is: " + name)
 
 # INSERT ROW
 #Sample insert query

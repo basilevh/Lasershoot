@@ -22,8 +22,8 @@ result = [True] * 9
 percentage = 0.30
 
 diffList = [0.0] * 10
-def compare(arr, proc):
-    
+def compare(arr):
+
     ok = True
     for i in range(1,9):
         arr[i] = (target[1] / arr[1]) * arr[i]
@@ -37,7 +37,7 @@ def compare(arr, proc):
     print(diffList)
     print(result)
     print('\n')
-    
+
     return ok
 
 power = 7
@@ -76,15 +76,15 @@ while(True):
         if largenumberseen and counterWritten < 11:
             arr[counterWritten] = counter;
             counterWritten = counterWritten + 1
-            
+
             #print(str(lastread) + " / " + str(counter))
             #f.write(str(counter) + '\t')
-            
+
         if counterWritten == 11:
             counterWritten = 0
-            isShot = compare(arr, proc)
-            
-            
+            isShot = compare(arr)
+
+
             if isShot == True:
                 os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
                 print proc
@@ -119,14 +119,14 @@ while(True):
                     stdout=subprocess.PIPE,
                     shell=True,
                     preexec_fn=os.setsid)
-            
+
             print(isShot)
             counter = 0
             largenumberseen = False
             counterWritten = 0
             arr = [0] * 11
         else:
-            
+
             counter = 0
             lastread = newlastread
             newlasttime = time.time()
@@ -134,7 +134,7 @@ while(True):
         #if diff > 5.5 and diff < 6.5:
         #print((newlasttime-lasttime)*1000)
             lasttime = newlasttime
-            
+
     else:
         counter = counter + 1
 

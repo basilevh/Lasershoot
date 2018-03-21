@@ -24,6 +24,8 @@ setup(
     install_requires=[
         'guizero',
         'mysqlclient',
+        'flask',
+        'RPi.GPIO',
     ],
     tests_require=[
         'prospector',
