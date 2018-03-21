@@ -15,8 +15,8 @@ for row in cur.fetchall() :
       name = str(row[1])
 
       #print it
-      print "The ID is: " + id
-      print "The game mode is: " + name
+      print("The ID is: " + id)
+      print("The game mode is: " + name)
 	  
 # INSERT ROW
 #Sample insert query

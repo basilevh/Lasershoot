@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: latin-1 -*-
 """
 Setup file for the delaware 2018 lasershoot thing

@@ -21,18 +21,18 @@ while True:
     cur.execute("select id,status from dlwhackathon.game order by timestamp desc")
     row = cur.fetchone()
 
-    print "gepolld:", str(row[0]), str(row[1])
+    print("gepolld:", str(row[0]), str(row[1]))
 
     if int(row[1]) != 1:
-        print "Spel is niet bezig!"
+        print("Spel is niet bezig!")
         if gameRunning:
             gameRunning = False
             #TODO actually stop the game, how?
             #os.system("python theActualGame.py")
             os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
-            print "stopped game script"
+            print("stopped game script")
     else:
-        print "Spel is bezig!"
+        print("Spel is bezig!")
         if not gameRunning:
             gameRunning = True
             # TODO actually start the game
@@ -43,7 +43,7 @@ while True:
                 stdout=subprocess.PIPE,
                 shell=True,
                 preexec_fn=os.setsid)
-            print "started game script"
+            print("started game script")
     
     
         
