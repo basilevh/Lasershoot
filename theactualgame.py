@@ -1,7 +1,6 @@
 import time
 import datetime
 import MySQLdb
-import csv
 import os
 import signal
 import subprocess

@@ -1,11 +1,11 @@
 import MySQLdb
 import time
-import datetime
 import os
 import signal
 import subprocess
 
-db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011", db="hackathon")
+db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011",
+                     db="hackathon")
 
 #create a cursor for the select
 cur = db.cursor()
@@ -14,10 +14,10 @@ gameRunning = False
 proc = "" #notreally
 
 while True:
-    db = MySQLdb.connect(host="eu-cdbr-azure-west-b.cloudapp.net", user="b7f7d467f4d922", passwd="94f415a0", db="dlwhackathon")
+    db = MySQLdb.connect(host="eu-cdbr-azure-west-b.cloudapp.net", user="b7f7d467f4d922", passwd="94f415a0",
+                         db="dlwhackathon")
     cur = db.cursor()
-    
-    
+
     cur.execute("select id,status from dlwhackathon.game order by timestamp desc")
     row = cur.fetchone()
 
@@ -44,9 +44,9 @@ while True:
                 shell=True,
                 preexec_fn=os.setsid)
             print("started game script")
-    
-    
-        
+
+
+
     cur.close()
     db.close()
     time.sleep(10)

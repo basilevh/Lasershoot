@@ -1,13 +1,13 @@
 import time
 import datetime
 import MySQLdb
-import csv
 import os
 import signal
 import subprocess
 import RPi.GPIO as GPIO
 
-db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011", db="hackathon")
+db = MySQLdb.connect(host="dlw-hackathon.westeurope.cloudapp.azure.com", user="hackathon", passwd="Delaware.2011",
+                     db="hackathon")
 proc = subprocess.Popen(
     "python3 alive.py3",
     stderr=subprocess.STDOUT,  # Merge stdout and stderr
@@ -55,9 +55,6 @@ GPIO.output(buzzer,GPIO.HIGH)
 
 GPIO.setup(ir,GPIO.IN)
 
-
-
-
 f = open('team2.csv', 'a')
 f.write('\n')
 lastread = 0
@@ -84,10 +81,9 @@ while(True):
             counterWritten = 0
             isShot = compare(arr)
 
-
-            if isShot == True:
+            if isShot:
                 os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
-                print proc
+                print(proc)
                 proc = subprocess.Popen(
                     "python3 dead.py3",
                     stderr=subprocess.STDOUT,  # Merge stdout and stderr
@@ -104,10 +100,11 @@ while(True):
                     file.close()
                     ts = time.time()
                     timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-                    cur.execute("""INSERT INTO hackathon.scores (game, timestamp, idpi) VALUES (%s, %s, %s)""", (newId, timestamp, piid))
+                    cur.execute("""INSERT INTO hackathon.scores (game, timestamp, idpi) VALUES (%s, %s, %s)""",
+                                (newId, timestamp, piid))
                     db.commit()
                 except Exception as e:
-                    print "error: ", str(e)
+                    print("error: ", str(e))
                     db.rollback()
                 print('I\'ve been shot! Inactive for 10 seconds!');
                 time.sleep(10);
@@ -137,4 +134,3 @@ while(True):
 
     else:
         counter = counter + 1
-
