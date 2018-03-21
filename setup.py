@@ -23,6 +23,7 @@ setup(
     version="0.1",
     install_requires=[
         'guizero',
+        'mysqlclient',
     ],
     tests_require=[
         'prospector',
